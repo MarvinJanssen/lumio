@@ -1,0 +1,12 @@
+{
+	"name": "Lumio",
+	"start_url": "http://localhost:5000",
+	"description": "Clarity Reactive Visual Programming IDE",
+	"icons": [
+		{
+			"src": "http://localhost:5000/public/logo.svg",
+			"sizes": "512x512",
+			"type": "image/svg+xml"
+		}
+	]
+}
