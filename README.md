@@ -2,11 +2,11 @@
 
 ![Animation](animation.gif)
 
-[Lumio](https://lumio.app) is a reactive visual programming IDE for [Clarity](https://clarity-lang.org/). It allows you to program Clarity smart contracts using drag and drop. It is reactive in the sense that it keeps track of custom definitions and updates those in place in real time.
+[Lumio](https://lumio.app) is a reactive visual programming IDE for [Clarity](https://clarity-lang.org/). It allows you to program Clarity smart contracts using drag and drop. It is reactive in the sense that it keeps track of custom definitions and updates those in place in real time. It also features inline help for all built-in keywords and functions, and custom ones in the future.
 
 You can try it out on https://lumio.app. 
 
-It is still possible to generate invalid code with Lumio. It currently does not insert placeholders when placing custom functions, for example.
+Clarity code is represented by symbol objects and these are validated and transpiled by the Lumio transpiler. It is still possible to generate invalid code with Lumio. It currently does not insert placeholders when placing custom functions, for example.
 
 This is a submission for the Clarity tooling hackathon.
 
@@ -17,6 +17,8 @@ This is a submission for the Clarity tooling hackathon.
 3. `npm install`.
 4. `npm run dev` to run the [development server](http://localhost:5000) or `npm run build` to build.
 
+Run tests with `npm test`.
+
 You can generate docs using `npm run jsdoc` (install jsdoc using `npm install -g jsdoc`).
 
 ## To-dos:
@@ -25,3 +27,4 @@ You can generate docs using `npm run jsdoc` (install jsdoc using `npm install -g
 - Add custom symbol support to the validator and transpiler.
 - More comprehensive validation.
 - Interactive tutorial.
+- Sample projects.
