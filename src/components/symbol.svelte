@@ -120,7 +120,7 @@
 <div class={class_list} in:receive|local={{key:id,duration,fallback:receive_fallback}} out:send|local={{key:id,duration,fallback:receive_fallback}}>
 	<div class="name handle">
 		{reference.name_hint || reference.name || symbol.name || '?'}
-		{#if !drawer && reference.input}
+		{#if !drawer && (reference.input || reference.max_input)}
 			<span>{symbol.symbols.length}{#if reference.max_input !== Infinity}/{reference.max_input}{/if}</span>
 		{/if}
 	</div>
@@ -138,6 +138,8 @@
 				<SymbolArgumentDefinition bind:value={symbol.value} on:input={validate_value} bind:static_symbols />
 			{:else if symbol.type === '#type-definition'}
 				<SymbolTypeDefinition bind:value={symbol.value} bind:static_symbols />
+			{:else if symbol.type === '#map-definition'}
+				<!-- no value -->
 			{:else}
 				<input bind:value={symbol.value} autocomplete="off" spellcheck="false" on:input={validate_value} type="text" />
 			{/if}
@@ -172,7 +174,7 @@
 			{/if}
 		{/if}
 		<!-- tuple definitions have add / remove buttons -->
-		{#if symbol.type === '#type-definition' && symbol.value === 'tuple'}
+		{#if ((symbol.type === '#type-definition' && symbol.value === 'tuple') || symbol.type === '#map-definition')}
 			<div class="button" title="Add key." on:click={() => {static_symbols.push(construct_symbol('value','#tuple-definition'));static_symbols=static_symbols;}}>add key</div>
 			{#if symbol.symbols.length > 1}
 				<div class="button" title="Remove key." on:click={() => {static_symbols.pop();static_symbols=static_symbols;}}>Remove key</div>

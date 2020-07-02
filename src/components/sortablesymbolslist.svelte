@@ -15,7 +15,7 @@
 	import {create_animation} from 'svelte/internal';
 	// import Sortable from 'svelte-sortablejs';
 	import Sortable from './sortablelist.svelte';
-	import {Symbol,Reference} from '../lumio';
+	import {Symbol,Reference,Value} from '../lumio';
 	import {construct_symbol,uid} from '../utils';
 	import reference from '../reference';
 
@@ -203,7 +203,7 @@
 		if (options.document)
 			node.dataset.document = true;
 		if (symbol)
-			node.dataset.symbol_name = symbol.name;
+			node.dataset.symbol_name = symbol instanceof Value ? symbol.type : symbol.name;
 		if (symbol instanceof Reference && symbol.type === 'function')
 			node.dataset.custom_function = '1';
 		});

@@ -262,7 +262,7 @@ Value.prototype.duplicate = function(deep)
 export function Reference(type,name,custom)
 	{
 	if (type !== 'function' && type !== 'variable' && type !== 'keyword')
-		throw new Error('type must be function, variable, or keyword');
+		throw new Error('type must be function, variable, or keyword, "'+type+'" given');
 	this.type = type;
 	this.name = name;
 	this.custom = custom;
@@ -367,7 +367,7 @@ Transpiler.prototype.transpile = function(document,options)
 	if (!result.valid)
 		return result;
 
-	var render = (symbols,indent_level) =>
+	var render = (symbols,indent_level,parent) =>
 		{
 		var code = '';
 		if (!indent_level)
@@ -382,8 +382,6 @@ Transpiler.prototype.transpile = function(document,options)
 					code += ' ('+symbol.value;
 				else if (symbol.type === 'buff')
 					code += ' "' + symbol.value.replace(/"/g,'\\"') + '"';
-				else if (symbol.type === 'uint')
-					code += ' '+symbol.value; // code += ' u'+symbol.value;
 				else
 					code += ' '+(symbol.type === 'bool' ? (symbol.value ? 'true':'false') : symbol.value);
 				if (symbol.symbols.length) // type definition
@@ -398,9 +396,9 @@ Transpiler.prototype.transpile = function(document,options)
 				// 	throw new Error('Unknown symbol '+symbol.name);
 				// if (symbol instanceof Reference)
 				// 	console.log(symbol);
-				code += (type==='function'?"\n"+indent+'(':' ')+symbol.name;
-				if (type==='function')
-					code += render(symbol.symbols,indent_level) + ')';
+				code += (type === 'function' ? "\n" + indent + '(' :' ')+symbol.name;
+				if (type === 'function')
+					code += render(symbol.symbols,indent_level,symbol) + ')';
 				}
 			}
 		return code;

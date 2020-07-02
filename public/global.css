@@ -202,7 +202,7 @@ button:focus{
 
 
 #main>.left{
-	flex-basis: 16em;
+	flex-basis: 16.5em;
 	flex-shrink: 0;
 	overflow: auto;
 	overflow-y: scroll;
@@ -835,6 +835,10 @@ body.dragging-action .delete_zone{
 	transition: background-color .1s linear;
 }
 
+#document .symbol .button:hover{
+	background-color: var(--color-secondary-2-1);
+}
+
 #document .symbol .symbols+.button{
 	margin-left: 0;
 }
@@ -879,6 +883,14 @@ body.dragging-action .delete_zone{
 #document>.symbol .symbol{
 	background-color: rgba(0,0,0,.1);
 	transition: background-color .1s linear, box-shadow .1s linear;
+}
+
+#document .symbol.tuple .symbols:empty::after{
+	content: 'Value expression';
+	font-size: .75em;
+	color: rgba(255,255,255,.2);
+	margin-top: 2em;
+	font-style: italic;
 }
 
 /*#document>.symbol .symbol.method,

@@ -82,6 +82,13 @@ clarity_ref.values = [
 		type: 'value'
 	},
 	{
+		name: '#map-definition',
+		defines: 'variable',
+		name_hint: 'map tuple',
+		description: 'A map tuple definition.',
+		type: 'value'
+	},
+	{
 		name: '#tuple-definition',
 		defines: 'variable',
 		name_hint: 'key',
@@ -92,8 +99,10 @@ clarity_ref.values = [
 	{
 		name: '#tuple-value',
 		name_hint: 'key',
-		description: 'A key name. Valid characters are `a-z`, `0-9` and `-`. Must not start with a number or dash.',
+		description: 'A tuple key-value pair. Should contain one value expression. Valid characters are `a-z`, `0-9` and `-`. Must not start with a number or dash.',
 		pattern: /^[a-zA-Z][a-zA-Z0-9\-]{0,}$/,
+		input: ['expr'],
+		max_input: 1,
 		type: 'value'
 	},
 	{
@@ -199,7 +208,7 @@ if (clarity_ref.functions)
 clarity_ref.index['define-constant'].placeholders = ['#reference-name'];
 clarity_ref.index['define-data-var'].placeholders = ['#reference-name','#type-definition'];
 clarity_ref.index['define-fungible-token'].placeholders = ['#reference-name'];
-clarity_ref.index['define-map'].placeholders = ['#reference-name'];
+clarity_ref.index['define-map'].placeholders = ['#reference-name','#map-definition','#map-definition'];
 clarity_ref.index['define-non-fungible-token'].placeholders = ['#reference-name','#type-definition'];
 clarity_ref.index['define-private'].placeholders = ['#method-signature'];
 clarity_ref.index['define-public'].placeholders = ['#method-signature'];
@@ -207,6 +216,7 @@ clarity_ref.index['define-read-only'].placeholders = ['#method-signature'];
 clarity_ref.index['define-trait'].placeholders = ['#reference-name']; //FIXME-
 clarity_ref.index['impl-trait'].placeholders = ['#trait-reference'];
 clarity_ref.index['tuple'].placeholders = ['#tuple-value'];
+clarity_ref.index['tuple'].input = false;
 
 /* istanbul ignore else */
 if (clarity_ref.keywords)
