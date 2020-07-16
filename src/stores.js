@@ -2,6 +2,8 @@ import {writable} from 'svelte/store';
 
 export var help = writable(null);
 
+export var analysis = writable(null);
+
 function object_list()
 	{
 	var {subscribe,set,update} = writable([]);

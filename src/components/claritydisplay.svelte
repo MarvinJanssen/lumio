@@ -5,6 +5,9 @@
 	import {Transpiler} from '../lumio';
 	import {version} from '../../package.json';
 
+	import {analysis} from '../stores';
+	import {load,evaluate_ansi} from '../repl';
+
 	var transpiler = new Transpiler(reference);
 
 	var result;
@@ -15,6 +18,8 @@
 
 	$: result = transpiler.transpile(document);
 	$: code = (header+(result.code || ';; Nothing to see here, time to create a smart contract.')).trim().split("\n");
+
+	$: load().then(() => analysis.set(evaluate_ansi(result.code)),console.log);
 
 </script>
 <div id="code">

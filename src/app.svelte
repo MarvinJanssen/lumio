@@ -8,7 +8,7 @@
 	import SignInButton from './components/signinbutton.svelte';
 	import {Document,Symbol,Value,Reference,Transpiler} from './lumio.js';
 	import {escape_html} from './utils';
-	import {help} from './stores';
+	import {help,analysis} from './stores';
 	import reference from './reference';
 
 	var show_bottom_bar = false;
@@ -78,33 +78,37 @@
 			{/if}
 		</div>
 		<div class="bottom">
-			{#if show_bottom_bar && help_symbol}
-				<div id="bottombar" transition:slide={{duration:200}}>
-					<div class="close" on:click={() => show_bottom_bar = false}>&times;</div>
-					<div class="symbol_help">
-						<div class="row">
-							<div class="name">{help_symbol.name_hint || help_symbol.name}</div>
-							{#if help_symbol.signature}
-								<div class="syntax"><code>{help_symbol.signature}</code></div>
-							{/if}
-						</div>
-						<div class="row">
-							<div class="io">
-								{#if help_symbol.type === 'function'}
-									<div class="input"><code>{help_symbol.input_type || 'none'}</code></div>
-								{/if}
-								{#if help_symbol.type === 'function' || help_symbol.type === 'symbol'}
-									<div class="output"><code>{help_symbol.output_type || 'none'}</code></div>
+			{#if (show_bottom_bar && help_symbol) || (code_toggle && $analysis)}
+				<div id="bottombar" class="{code_toggle?'code':''}" transition:slide={{duration:200}}>
+					{#if code_toggle}
+						{@html $analysis}
+					{:else}
+						<div class="close" on:click={() => show_bottom_bar = false}>&times;</div>
+						<div class="symbol_help">
+							<div class="row">
+								<div class="name">{help_symbol.name_hint || help_symbol.name}</div>
+								{#if help_symbol.signature}
+									<div class="syntax"><code>{help_symbol.signature}</code></div>
 								{/if}
 							</div>
-							<div class="info">
-								<div class="description">{@html escape_html(help_symbol.description).replace(/`(.+?)`/g,'<code>$1</code>').replace(/ _(.+?)_ /g,' <em>$1</em> ')}</div>
-								{#if help_symbol.example}
-									<div class="example"><pre><code>{help_symbol.example.trim()}</code></pre></div>
-								{/if}
+							<div class="row">
+								<div class="io">
+									{#if help_symbol.type === 'function'}
+										<div class="input"><code>{help_symbol.input_type || 'none'}</code></div>
+									{/if}
+									{#if help_symbol.type === 'function' || help_symbol.type === 'symbol'}
+										<div class="output"><code>{help_symbol.output_type || 'none'}</code></div>
+									{/if}
+								</div>
+								<div class="info">
+									<div class="description">{@html escape_html(help_symbol.description).replace(/`(.+?)`/g,'<code>$1</code>').replace(/ _(.+?)_ /g,' <em>$1</em> ')}</div>
+									{#if help_symbol.example}
+										<div class="example"><pre><code>{help_symbol.example.trim()}</code></pre></div>
+									{/if}
+								</div>
 							</div>
 						</div>
-					</div>
+					{/if}
 				</div>
 			{/if}
 		</div>

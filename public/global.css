@@ -236,6 +236,10 @@ button:focus{
 	position: relative;
 }
 
+/*#bottombar.code{
+	background-color: #000;
+}*/
+
 #bottombar>.close{
 	position: sticky;
 	display: block;
